@@ -1,0 +1,20 @@
+CLASS zcl_08_lion_lgl_c367_cv DEFINITION INHERITING FROM zcl_07_animal_lgl_c367_cv
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    METHODS walk REDEFINITION.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_08_lion_lgl_c367_cv IMPLEMENTATION.
+  METHOD walk.
+    rv_walk = 'The lion walks'.
+  ENDMETHOD.
+
+ENDCLASS.

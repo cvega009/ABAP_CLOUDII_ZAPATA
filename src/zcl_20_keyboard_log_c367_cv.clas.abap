@@ -1,0 +1,15 @@
+CLASS zcl_20_keyboard_log_c367_cv DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    DATA: keyboard_type TYPE string.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_20_keyboard_log_c367_cv IMPLEMENTATION.
+ENDCLASS.

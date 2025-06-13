@@ -1,0 +1,24 @@
+CLASS zcl_20_honda_crv_lgl_c367_cv DEFINITION INHERITING FROM zcl_19_honda_lgl_c367_cv
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+    METHODS set_model REDEFINITION.
+    METHODS: set_max_speed REDEFINITION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+CLASS zcl_20_honda_crv_lgl_c367_cv IMPLEMENTATION.
+
+  METHOD set_model.
+
+  ENDMETHOD.
+
+  METHOD set_max_speed.
+
+  ENDMETHOD.
+
+ENDCLASS.

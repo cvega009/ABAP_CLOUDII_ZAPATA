@@ -1,0 +1,21 @@
+CLASS zcl_18_moto_lgl_c367_cv DEFINITION ABSTRACT
+  PUBLIC
+*  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  METHODS: set_hp IMPORTING ib_hp type i.
+
+  PROTECTED SECTION.
+  METHODS: set_max_speed ABSTRACT IMPORTING iv_max_speed type i.
+
+  PRIVATE SECTION.
+  DATA: hp TYPE i.
+ENDCLASS.
+
+CLASS zcl_18_moto_lgl_c367_cv IMPLEMENTATION.
+  METHOD set_hp.
+
+  ENDMETHOD.
+
+ENDCLASS.

@@ -22,16 +22,51 @@ ENDCLASS.
 CLASS zcl_execution_c367_cv IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 *------------------------------------------------------------------------------------------------
-*  POO Asociación
-    DATA(lo_credit_card) = NEW zcl_27_credit_card_lgl_c367_cv(  ).
-    DATA(lo_client) = NEW zcl_28_client_lgl_c367_cv(  ).
+* * Múltiples referencias apuntando al mismo objeto
+    DATA: lo_vat_indicator_1 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
+          lo_vat_indicator_2 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
+          lo_vat_indicator_3 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv.
 
-    lo_credit_card->set_card_num( '1111 2222 3333 4444' ).
+*    CREATE OBJECT:
+*    lo_vat_indicator_1,
+*    lo_vat_indicator_2,
+*    lo_vat_indicator_3.
 
-    lo_client->set_credit_card( lo_credit_card ).
+    lo_vat_indicator_1 = NEW #(  ).
+*    lo_vat_indicator_2 = NEW #(  ).
+*    lo_vat_indicator_3 = NEW #(  ).
 
-    out->write( lo_client->get_credit_card( )->get_card_num(  ) ).
+    lo_vat_indicator_2 = lo_vat_indicator_1.
+    lo_vat_indicator_3 = lo_vat_indicator_1.
 
+    lo_vat_indicator_1->vat_ind = 'A1'.
+    lo_vat_indicator_2->vat_ind = 'A2'.
+    lo_vat_indicator_3->vat_ind = 'A3'.
+
+    out->write( lo_vat_indicator_1->vat_ind ).
+    out->write( lo_vat_indicator_2->vat_ind ).
+    out->write( lo_vat_indicator_3->vat_ind ).
+
+*------------------------------------------------------------------------------------------------
+** Composición
+*    DATA(lo_keyboard) = NEW zcl_29_keyboard_lgl_c367_cv(  ).
+*    DATA(lo_laptop)   = NEW zcl_30_laptop_lgl_c367_cv( lo_keyboard ).
+*
+*    lo_keyboard->keyboard_type = 'ES'.
+*
+*    out->write( lo_laptop->keyboard->keyboard_type ).
+
+*------------------------------------------------------------------------------------------------
+**  POO Asociación
+*    DATA(lo_credit_card) = NEW zcl_27_credit_card_lgl_c367_cv(  ).
+*    DATA(lo_client) = NEW zcl_28_client_lgl_c367_cv(  ).
+*
+*    lo_credit_card->set_card_num( '1111 2222 3333 4444' ).
+*
+*    lo_client->set_credit_card( lo_credit_card ).
+*
+*    out->write( lo_client->get_credit_card( )->get_card_num(  ) ).
+*
 *------------------------------------------------------------------------------------------------
 *** Polimorfismo con interfaces
 *

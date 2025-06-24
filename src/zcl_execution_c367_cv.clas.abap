@@ -22,31 +22,101 @@ ENDCLASS.
 CLASS zcl_execution_c367_cv IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 *------------------------------------------------------------------------------------------------
-* * Múltiples referencias apuntando al mismo objeto
-    DATA: lo_vat_indicator_1 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
-          lo_vat_indicator_2 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
-          lo_vat_indicator_3 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv.
+*  2.6. Definir eventos en las interfaces
 
-*    CREATE OBJECT:
-*    lo_vat_indicator_1,
-*    lo_vat_indicator_2,
-*    lo_vat_indicator_3.
+    DATA(go_americanbank) = NEW zcl_37_americabank_lgl_c367_cv(  ).
+    DATA(go_bankclient)   = NEW zcl_38_bankclient_lgl_c367_cv(  ).
 
-    lo_vat_indicator_1 = NEW #(  ).
-*    lo_vat_indicator_2 = NEW #(  ).
-*    lo_vat_indicator_3 = NEW #(  ).
+    SET HANDLER go_bankclient->on_new_transfer FOR go_americanbank.
 
-    lo_vat_indicator_2 = lo_vat_indicator_1.
-    lo_vat_indicator_3 = lo_vat_indicator_1.
+    DO 5 TIMES.
+      WAIT UP TO 1 SECONDS.
+      out->write( go_americanbank->create_notification(  ) ).
+      out->write( go_bankclient->notification ).
+    ENDDO.
 
-    lo_vat_indicator_1->vat_ind = 'A1'.
-    lo_vat_indicator_2->vat_ind = 'A2'.
-    lo_vat_indicator_3->vat_ind = 'A3'.
+*------------------------------------------------------------------------------------------------
+***  2.4. Establecer referencia manejadora
+*
+*    "Instancia de la clase que define el evento y lo levanta
+*    DATA(go_timer) = NEW zcl_35_timer_lgl_c367_cv(  ).
+*    "Instancia que se encarga de manejar el evento es la clase receptora
+*    DATA(go_conexion) = NEW zcl_36_conexion_lgl_c367_cv( ).
+*
+*    "Establecer o indicar en tiempo de ejecución que tenemos un referencia
+*    "que escucha o que establece un handler, un manejador a la referencia
+*    "responsable de levantar el evento
+*    SET HANDLER go_conexion->on_time_out FOR go_timer.
+*
+*    "Prueba
+*    DO.
+*      WAIT UP TO 1 SECONDS.
+*      go_timer->increment_counter( 1 ).
+*
+*      IF go_conexion->hour IS INITIAL.
+*        out->write( |Event not yet executed: { cl_abap_context_info=>get_system_time(  ) }| ).
+*      ELSE.
+*        out->write( |Event was raised at: { go_conexion->hour }-{ go_conexion->sender_user }| ).
+*        EXIT.
+*
+*      ENDIF.
+*
+*    ENDDO.
+*
+**------------------------------------------------------------------------------------------------
+**Asignar instancias utilizando la clase genérica OBJECT
+*    DATA: go_object TYPE REF TO object.
+*
+*    go_object = NEW zcl_34_product_lgl_c367_cv(  ).
+*
+*    DATA(lv_method_name) = 'RETURN_CATEGORY'.
+*
+*    DATA lv_category TYPE string.
+*
+*    CALL METHOD go_object->(lv_method_name) RECEIVING rv_category = lv_category.
+*
+*    out->write( lv_category ).
 
-    out->write( lo_vat_indicator_1->vat_ind ).
-    out->write( lo_vat_indicator_2->vat_ind ).
-    out->write( lo_vat_indicator_3->vat_ind ).
-
+*------------------------------------------------------------------------------------------------
+**  Crear instancias de tipos distintos
+*    DATA: go_contrato TYPE REF TO zif_09_contract_lgl_c367_cv.
+*
+*    go_contrato = NEW zcl_32_constr_cntr_lgl_c367_cv(  ).
+*    CREATE OBJECT go_contrato TYPE zcl_32_constr_cntr_lgl_c367_cv.
+*
+*    DATA: go_constr_contract TYPE REF TO zcl_32_constr_cntr_lgl_c367_cv.
+*
+*    go_constr_contract = NEW zcl_33_record_cntr_lgl_c367_cv(  ).
+*    CREATE OBJECT go_constr_contract TYPE zcl_33_record_cntr_lgl_c367_cv.
+*
+*    go_contrato = NEW zcl_33_record_cntr_lgl_c367_cv(  ).
+*    CREATE OBJECT go_contrato TYPE zcl_33_record_cntr_lgl_c367_cv.
+*------------------------------------------------------------------------------------------------
+** * Múltiples referencias apuntando al mismo objeto
+*    DATA: lo_vat_indicator_1 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
+*          lo_vat_indicator_2 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv,
+*          lo_vat_indicator_3 TYPE REF TO zcl_31_vat_ind_lgl_c367_cv.
+*
+**    CREATE OBJECT:
+**    lo_vat_indicator_1,
+**    lo_vat_indicator_2,
+**    lo_vat_indicator_3.
+*
+*    lo_vat_indicator_1 = NEW #(  ).
+**    lo_vat_indicator_2 = NEW #(  ).
+**    lo_vat_indicator_3 = NEW #(  ).
+*
+*    lo_vat_indicator_2 = lo_vat_indicator_1.
+*    lo_vat_indicator_3 = lo_vat_indicator_1.
+*
+*    lo_vat_indicator_1->vat_ind = 'A1'.
+*    lo_vat_indicator_2->vat_ind = 'A2'.
+*    lo_vat_indicator_3->vat_ind = 'A3'.
+*
+*    out->write( lo_vat_indicator_1->vat_ind ).
+*    out->write( lo_vat_indicator_2->vat_ind ).
+*    out->write( lo_vat_indicator_3->vat_ind ).
+*
 *------------------------------------------------------------------------------------------------
 ** Composición
 *    DATA(lo_keyboard) = NEW zcl_29_keyboard_lgl_c367_cv(  ).
